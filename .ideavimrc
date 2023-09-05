@@ -1,0 +1,23 @@
+inoremap <C-f> <Esc>
+
+nnoremap ]t :<C-u>tabnext<CR>
+nnoremap [t :<C-u>tabprevious<CR>
+nmap [m <Action>(MethodUp)
+nmap ]m <Action>(MethodDown)
+nmap [e <Action>(GotoPreviousError)
+nmap ]e <Action>(GotoNextError)
+
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+nmap g; <Action>(JumpToLastChange)
+nmap g, <Action>(JumpToNextChange)
+
+nmap K <Action>(QuickJavaDoc)
+nmap <C-k> <Action>(ShowUsages)
+nmap <C-[> <Action>(GotoImplementation)
+nmap <space>gi <C-[> <Action>(GotoImplementation)
+nmap <space>gs <Action>(GotoSuperMethod)
+nmap <space>gt <Action>(GotoTest)
+
+set hls
+set surround

@@ -1,0 +1,186 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+hook_add = '''
+  set background=dark
+  autocmd myvimrc ColorScheme * highlight LineNr ctermfg=243
+  autocmd myvimrc VimEnter * nested colorscheme hybrid
+'''
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+depends = 'context_filetype.vim'
+if = "has('lua') && !has('nvim')"
+on_i = 1
+hook_source = '''
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#auto_completion_start_length = 2
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#max_list = 5
+'''
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  set laststatus=2
+  let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'readonly', 'filename', 'method', 'modified' ] ]
+        \ },
+        \ 'component': {
+        \   'readonly': '%{&readonly?"⭤":""}',
+        \ },
+        \ 'component_function': {
+        \   'fugitive': 'LightLineFugitive',
+        \   'method': 'NearestMethodOrFunction'
+        \ }
+    \ }
+  function! LightLineFugitive()
+    return exists('*fugitive#head') ? fugitive#head() : ''
+  endfunction
+
+  function! NearestMethodOrFunction() abort
+    return get(b:, 'vista_nearest_method_or_function', '')
+  endfunction
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_delay = 100
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_prefix = ">>> "
+let g:lsp_diagnostics_signs_error = {'text': '✗'}
+let g:lsp_diagnostics_signs_warning = {'text': '‼'}
+let g:lsp_diagnostics_signs_information = {'text': 'i'}
+let g:lsp_diagnostics_signs_hint = {'text': '?'}
+
+setlocal omnifunc=lsp#complete
+if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+
+nnoremap [lsp] <Nop>
+nmap <Leader>l [lsp]
+nnoremap <silent> [lsp]gd :LspDefinition<CR>
+nnoremap <silent> [lsp]gi :LspImplementation<CR>
+nnoremap <silent> [lsp]gr :LspReferences<CR>
+nnoremap <silent> [lsp]R :LspRename<CR>
+nnoremap <silent> [lsp]di :LspDocumentDiagnostics<CR>
+nnoremap <silent> [lsp]ho :LspHover<CR>
+nnoremap <silent> [lsp]fo :LspDocumentFormat<CR>
+'''
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+hook_add = '''
+  let g:lsp_settings = {
+  \  'pylsp-all': {
+  \    'workspace_config': {
+  \      'pylsp-all': {
+  \        'configurationSources': ['pflake8'],
+  \        'plugins': {
+  \          'pylsp_mypy': { 'enabled': 1 },
+  \          'pyproject-flake8': { 'enabled': 1 },
+  \        }
+  \      }
+  \    },
+  \    'whitelist': ['py']
+  \  },
+  \  'terraform-ls': {
+  \    'whitelist': ['terraform', 'tf']
+  \  }
+  \}
+'''
+
+[[plugins]]
+repo = 'tpope/vim-unimpaired'
+if = 0
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'vim-scripts/tComment'
+
+[[plugins]]
+repo = 'tpope/vim-abolish'
+
+[[plugins]]
+repo = 'vim-scripts/gtags.vim'
+hook_add = '''
+  nnoremap [gtags] <Nop>
+  nmap <Leader>g [gtags]
+  nnoremap <silent> [gtags]g :<C-u>Gtags<Space>-g<Space>
+  nnoremap <silent> [gtags]r :<C-u>Gtags<Space>-r<Space>
+'''
+
+[[plugins]]
+repo = "y-kamiya/automkdir.vim"
+
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# depends = 'context_filetype.vim'
+# if = "has('nvim')"
+# hook_add = '''
+#   let g:deoplete#enable_at_startup = 1
+#   inoremap <silent><expr> <CR> pumvisible() ? deoplete#close_popup() : "\<CR>"
+# '''
+# hook_source = '''
+#   call deoplete#custom#option({
+#       \ 'auto_complete': v:true,
+#       \ 'min_pattern_length': 2,
+#       \ 'auto_complete_delay': 0,
+#       \ 'auto_refresh_delay': 20,
+#       \ 'refresh_always': v:true,
+#       \ 'smart_case': v:true,
+#       \ 'camel_case': v:true,
+#       \ })
+#   call deoplete#custom#option('sources', {
+#       \ 'python': ['lsp', 'dictionary', 'file'],
+#       \ 'vim': ['vim', 'buffer', 'dictionary', 'file'],
+#       \})
+#   " call deoplete#enable()
+# '''
+
+# [[plugins]]
+# repo = 'lighttiger2505/deoplete-vim-lsp'
+# depends = 'deoplete.nvim'
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+hook_add = '''
+  let g:vista_sidebar_width = 40
+  let g:vista_echo_cursor = 0
+
+  " デフォルトの情報ソースをctagsにする
+  let g:vista_default_executive = 'ctags'
+  " 特定の言語の場合vim-lspを利用した情報ソースを利用するようにする
+  let g:vista_executive_for = {
+      \ 'go': 'vim_lsp',
+      \ 'python': 'vim_lsp',
+      \ }
+
+  " トグル(アウトラインを非表示の場合は表示、表示済みの場合は非表示に)
+  nnoremap [vista] <Nop>
+  nmap <Leader>v [vista]
+  nnoremap <silent> [vista] :<C-u>Vista!!<CR>
+'''
+
+[[plugins]]
+repo = 'yoshida-m-3/vim-im-select'

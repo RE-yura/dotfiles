@@ -1,0 +1,6 @@
+bundle
+dein
+vimbackup
+vim/.init.vim-rplugin~
+venv*
+.tool-versions

@@ -1,0 +1,13 @@
+set imd
+set contentassistmode
+set hlsearch
+set expandtab
+set number
+set smartindent
+
+inoremap <C-f> <Esc>
+
+nnoremap Y y$
+nnoremap <silent> ]t gt
+nnoremap <silent> [t gT
+nnoremap <silent> <C-l> :noh<CR>
