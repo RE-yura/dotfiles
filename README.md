@@ -25,7 +25,6 @@ $ sudo ubuntu-drivers install
 $ sudo add-apt-repository ppa:git-core/ppa
 $ sudo apt update
 $ sudo apt install git
-
 ```
 
 ### Vim & Neovim
@@ -61,7 +60,7 @@ Install Python with asdf
 
 ```
 $ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
-$ . “$HOME/.asdf/asdf.sh”
+$ . "$HOME/.asdf/asdf.sh"
 $ asdf install python 3.*.*
 ```
 
